@@ -4,6 +4,8 @@ NUI - Natural UI
 
 ####DEMO: http://codepen.io/mikkokam/pen/Geotz
 
+####USAGE: For now, check the src/www/index.html / or the at DEMO Codepen.
+
 Testing with [Ionic framework](http://ionicframework.com/).
 
 Includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
