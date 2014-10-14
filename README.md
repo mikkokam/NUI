@@ -13,9 +13,17 @@ Documentation coming later.
 
 ---------------
 
-Testing with [Ionic framework](http://ionicframework.com/).
+####Goals:
+* Enable the user to directly manipulate, drag, and throw any UI element,
+* using touch and multi-touch with inertia, plus tilting/orienting the device.
+* Have elements automatically interact with each others on screen, using natural and intuitive phenomena from physics.
+* Make this very easy for anyone to implement in code. No canvas, just plain DOM elements. Declarative, i.e. an element is declared to be tiltable by an HTML attribute > immediately starts reacting to the device orientation.
 
-Includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
+---------------
+
+We are testing these principles using [Ionic framework](http://ionicframework.com/). This enables rapid building of web apps and iOS and Android apps.
+
+NUI includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
 
 ##Natural UI
 From CLI to GUI, and now to NUI
@@ -40,7 +48,6 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 
 
 ###Multi-touch and other inputs
-#####Goals: Drag, throw, and manipulate any UI element using multi-touch with inertia, or accelerometer.
 
 **Abstraction for UI design:**
 
