@@ -24,7 +24,7 @@ Documentation coming later.
 
 We are testing these principles using [Ionic framework](http://ionicframework.com/). This enables rapid building of web apps and iOS and Android apps.
 
-NUI includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
+NUI includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D physics engine: gravity, collisions, inertia, friction and several others.
 
 ##Natural UI
 From CLI to GUI, and now to NUI
@@ -44,7 +44,7 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 4. **Contextual Environments** - Responsive to the context, suggesting what the next interaction could be.
 5. **The Super Real** - The UI elements not only feel real, but we also perceive them to be *super real* as their character can change in a way that is almost magical.
 6. **Social Interaction** - UI should be streamlined, enabling more opportunities for users to engage and interact with other users instead of the system’s interface.
-7. **Spatial Relationships** - Represent information as objects, not symbols.
+7. **Spatial Relationships** - Represent information as such, as objects - not symbols of the information.
 8. **Seamlessness** - Sensors, and the use of gestural UI's enable interactions to feel seamless. There are fewer barriers between the user and information.
 
 
