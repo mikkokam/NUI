@@ -5,7 +5,7 @@ NUI - Natural UI
 
 Testing with [Ionic framework](http://ionicframework.com/).
 
-Includes **Angular modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
+Includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
 
 ##Natural UI
 From CLI to GUI, and now to NUI
