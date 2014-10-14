@@ -2,7 +2,7 @@ NUI - Natural UI
 ================
 **NUI for mobile devices.** NOTE: Just a rapid proof-of-concept so far.
 
-####DEMO: http://codepen.io/mikkokam/pen/Geotz
+####DEMO: http://codepen.io/mikkokam/full/Geotz
 
 ####USAGE: Check the src/www/index.html - or the Codepen demo.
 Load the required js (**Ionic**, then `velocity.js`, `velocity.ui.js` and `Box2dWeb.js`).
