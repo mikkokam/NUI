@@ -3,6 +3,8 @@ NUI - Natural UI
 **NUI for mobile devices.**
 ######NOTE: Just a rapid proof-of-concept so far.
 
+##DEMO: http://codepen.io/mikkokam/pen/Geotz
+
 Testing with [Ionic framework](http://ionicframework.com/).
 
 Includes **Angular/Ionic modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
