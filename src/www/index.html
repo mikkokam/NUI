@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <!-- add touch emulation hold SHIFT-key while using the mouse -->
+    <script src="http://cdn.rawgit.com/hammerjs/touchemulator/master/touch-emulator.js"></script>
+    <script>TouchEmulator()</script>
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- Inline styles for the demo -->
+    <style>
+        h2{
+            position: relative;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            left:50%;
+            width:240px;
+            height:120px;
+            margin-left: -120px!important;
+            margin-top: 20px!important;
+            background: rgba(230,150,10,0.5);
+            padding: 10px;
+            line-height: 32px;
+            font-weight: 300;
+        }
+    </style>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- EXTRENAL JS -->
+    <!-- ANIMATIONS: Velocity is being tested for <nui-touchable> and <nui-tiltable> animations -->
+    <script src="lib/velocity/velocity.min.js"></script>
+    <script src="lib/velocity/velocity.ui.min.js"></script>
+    <!-- 2D PHYSCIS ENGINE: Box2dWeb. Could be switched to LiquidFun or some other. -->
+    <!-- Physics is for calculation only. Visualizing the results is plain animation of the DOM. -->
+    <!-- Velocity could be (but is not) used for <nui-body> Box2D animations, plain CSS transforms are being tested there instead. -->
+    <script src="lib/box2d/Box2dWeb-2.1.a.3.min.js"></script>
+    
+    <!-- DEVELOPMENT VERSION OF NUI -->
+    <script src="nui/ionic/nui-ionic.js"></script>
+    <script src="nui/ionic/box2d/nui-ionic-box2d.js"></script>
+
+    <!-- THIS DEMO APP -->
+    <script src="js/app.js"></script>
+    
+  </head>
+  <body ng-app="starter">
+
+    <ion-pane>
+
+      <ion-header-bar class="bar-energized">
+        <h1 class="title">NUI - Natural UI for Ionic</h1>
+      </ion-header-bar>
+      <ion-content scroll="false" style="perspective: 500px">
+
+        <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    DEMO
+                </div>
+                <select
+                    ng-model="demo" 
+                    ng-init="demo=0">
+                    <option value="0">Touchable (single and multi-touch)</option>
+                    <option value="1">Tiltable</option>
+                    <option value="2">Simple Physics</option>
+                    <option value="3">Real physics: Box2D</option>
+                    <option value="4">Ionic + Box2D</option>
+                </select>
+            </label>
+        </div>
+
+        <div ng-if="demo==0" class="padding">
+
+            <h2 nui-touchable
+                nui-limit-x=        "0%, 50%"
+                nui-limit-y=        "-100px, 100px"
+                nui-drag-x=         "rotateY: 1, translateX: 1"
+                nui-drag-y=         "rotateX: -1, translateY: 1"
+                nui-stops-x=        "0%, 38%"
+                nui-stops-y=        "0px"
+                nui-ease-time=      "400"
+                nui-ease-function=  "[600,24]"
+                nui-friction=       "0.2"
+              >
+              TOUCHABLE<br />with configuration
+            </h2> 
+
+            <h2 nui-touchable>
+                TOUCHABLE<br />using defaults
+            </h2>
+            <p>Run in Chrome emulation mode or a mobile device.</p>
+            <p>Test one or two fingers.</p>
+        </div>     
+
+        <div ng-if="demo==1">
+            <h2 nui-tiltable>
+                TILTABLE<br />using defaults
+            </h2>
+        </div>
+
+        <div ng-if="demo==2">
+            <h2 nui-gravity>
+                GRAVITY<br />using defaults
+            </h2>
+        </div>
+
+        <div
+            ng-if="demo==3"
+            style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%"
+            ng-controller="Box2DController">
+            <div 
+                nui-body
+                nui-static="true"
+                nui-x="75%"
+                nui-y="60%"
+                nui-rotate="-10deg"
+                style="
+                    background: gray;
+                    position: absolute;
+                    width: 50%;
+                    height: 20px;">
+            </div>
+            <div
+                ng-repeat="block in blocks"
+                nui-body
+                nui-x="{{block.x}}"
+                nui-y="{{block.y}}"
+                style="
+                    background: orange;
+                    border: 1px solid gray;
+                    position: absolute;
+                    width: 45px;
+                    height: 45px;
+                    ">
+            </div>
+        </div>  
+        <div
+            ng-if="demo==4"
+             style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%"
+            ng-controller="ListController">
+
+
+            <div class="list">
+                <div class="item item-icon-left item-icon-right"
+                    ng-repeat="block in blocks"
+                    nui-body
+                    style="
+                        position: absolute;
+                        width: 45%;
+                        ">
+                        <i class="icon ion-chatbubble-working"></i>
+                            Item {{block.x}}
+                        <i class="icon ion-chevron-right"></i>
+                </div>
+            </div>
+        </div>  
+
+      </ion-content>
+    </ion-pane>
+
+  </body>
+</html>
