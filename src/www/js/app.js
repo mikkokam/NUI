@@ -27,8 +27,22 @@ angular.module('starter', ['ionic', 'nui.ionic', 'nui.ionic.box2d'])
     nuiWorld.destroy();
 
     $scope.blocks = [];
-    for(var i=0; i < 10; i++){
-        $scope.blocks.push({"x": i * 40 + 'px', "y": '50%'})
+
+    // just feeding in parameters for a regular div:
+    for(var i=1; i < 10; i++){
+        $scope.blocks.push({"shape": "box", "x": i * 10 + '%', "y": '20%', "width": "45px", "height": "45px"})
+    }
+    for(var i=1; i < 7; i++){
+        $scope.blocks.push({"shape": "circle", "x": i * 15 + '%', "y": '10%', "width": "30px", "height": "30px"})
+    }
+
+    $scope.makeStyle = function(block){
+        var br = (block.shape == "circle") ? block.width : 0;
+        return({
+            "width": block.width,
+            "height": block.height,
+            "border-radius": br
+        });
     }
 
 })

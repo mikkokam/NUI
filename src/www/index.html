@@ -28,6 +28,16 @@
             line-height: 32px;
             font-weight: 300;
         }
+        .box{
+            position: absolute;
+            border: 1px solid gray;
+            background: orange;
+        }
+        .circle{
+            position: absolute;
+            border: 1px solid gray;
+            background: yellow;
+        }
     </style>
 
     <!-- ionic/angularjs js -->
@@ -59,29 +69,31 @@
 
       <ion-header-bar class="bar-energized">
         <h1 class="title">NUI - Natural UI for Ionic</h1>
+        <a class="button" target="_blank" href="https://github.com/mikkokam/NUI">Github</a>
       </ion-header-bar>
-      <ion-content scroll="false" style="perspective: 500px">
+      <ion-content scroll="false"
+                   class="world">
 
-        <div class="list">
+        <div class="list" >
             <label class="item item-input item-select">
                 <div class="input-label">
                     DEMO
                 </div>
                 <select
                     ng-model="demo" 
-                    ng-init="demo=0">
+                    ng-init="demo=3">
                     <option value="0">Touchable (single and multi-touch)</option>
                     <option value="1">Tiltable</option>
                     <option value="2">Simple Physics</option>
                     <option value="3">Real physics: Box2D</option>
-                    <option value="4">Ionic + Box2D</option>
+                    <option value="4">Box2D and Ionic</option>
                 </select>
             </label>
         </div>
 
         <div ng-if="demo==0" class="padding">
-
-            <h2 nui-touchable
+            <h2 class="padding"
+                nui-touchable
                 nui-limit-x=        "0%, 50%"
                 nui-limit-y=        "-100px, 100px"
                 nui-drag-x=         "rotateY: 1, translateX: 1"
@@ -95,11 +107,21 @@
               TOUCHABLE<br />with configuration
             </h2> 
 
-            <h2 nui-touchable>
+            <h2 class="padding"
+                nui-touchable>
                 TOUCHABLE<br />using defaults
             </h2>
-            <p>Run in Chrome emulation mode or a mobile device.</p>
-            <p>Test one or two fingers.</p>
+            <div class="card"
+                 ng-show="showTips"
+                 ng-init="showTips = true"
+                 on-swipe="showTips = false">
+              <div class="item item-text-wrap">
+                <h3>Test dragging the boxes with one or two fingers.</h3>
+                <small>Use a phone or tablet to test. Select a demo from the dropdown above.<hr /></small>
+                <h4>Swipe this card to close it.</h4>
+              </div>
+            </div>
+
         </div>     
 
         <div ng-if="demo==1">
@@ -124,26 +146,30 @@
                 nui-x="75%"
                 nui-y="60%"
                 nui-rotate="-10deg"
+                
                 style="
                     background: gray;
                     position: absolute;
                     width: 50%;
                     height: 20px;">
             </div>
+
+            <!-- An example of setting custom attributes. The size, position and shape all can be parsed automatically, if no attribute is give for them. -->
             <div
+                class="box"
                 ng-repeat="block in blocks"
+                ng-class="block.shape"
+                ng-style="makeStyle(block)"
+
                 nui-body
                 nui-x="{{block.x}}"
                 nui-y="{{block.y}}"
-                style="
-                    background: orange;
-                    border: 1px solid gray;
-                    position: absolute;
-                    width: 45px;
-                    height: 45px;
-                    ">
+                nui-width="{{block.width}}"
+                nui-height="{{block.height}}"
+                nui-shape="{{block.shape}}"
+                >
             </div>
-        </div>  
+        </div>   
         <div
             ng-if="demo==4"
              style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%"
@@ -156,13 +182,30 @@
                     nui-body
                     style="
                         position: absolute;
-                        width: 45%;
+                        width: 38%;
                         ">
                         <i class="icon ion-chatbubble-working"></i>
                             Item {{block.x}}
                         <i class="icon ion-chevron-right"></i>
                 </div>
             </div>
+            <a 
+                class="button button-dark"
+                nui-body
+                nui-static="true"
+                nui-x="75%"
+                nui-y="50%">
+                Button 
+            </a>
+            <a 
+                class="button button-energized"
+                nui-body
+                nui-x="85%"
+                nui-y="0%">
+                Button 
+            </a>
+
+          
         </div>  
 
       </ion-content>
