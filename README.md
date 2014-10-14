@@ -52,7 +52,7 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 
 **Abstraction for UI design:**
 
-Input:  one or more touches, x and y.
+Input:  one or more touches, x and y (Hammer.js used by Ionic can track many touches simultaneously - take a look at  'touches' under the event when doing a pinch or rotate with many fingers). Accelerometer data. Effect from other elements via collisions, and links such as hinges and springs.
 
 Output: transform a DOM element by any combo of 'translateX', 'translateY', 'translateZ', 'rotateX','rotateY','rotateZ','scale', 'scaleX','scaleY'. Can take multipliers and functions.
 
