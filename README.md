@@ -2,7 +2,7 @@ NUI - Natural UI
 ================
 **NUI for mobile devices.** NOTE: Just a rapid proof-of-concept so far.
 
-#####DEMO: http://codepen.io/mikkokam/pen/Geotz
+####DEMO: http://codepen.io/mikkokam/pen/Geotz
 
 Testing with [Ionic framework](http://ionicframework.com/).
 
