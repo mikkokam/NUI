@@ -30,8 +30,8 @@ NUI includes **Angular/Ionic modules** to enable declaring any DOM element to re
 From CLI to GUI, and now to NUI
 
 CLI is based on remembering the commands.
-GUI is symbolic, turns-based.
-The user is presented with all the options in a symbolic form, such as a button representing a tool to scale something. The interaction is request - response; a conversation between the user and the device (indirect).
+
+GUI is symbolic, turn-based or sequential. The user is presented with all the options in a symbolic form, such as a button representing a tool to scale something. The interaction consists of little tasks in form of request - response between the user and the UI. The conversation between the user and the device is sequential and indirect.
 The interface is abstract, the user might be moving a mouse on a table to move a pointer elsewhere to click an icon representing a zoom tool.
 
 So, what about NUI?
@@ -52,7 +52,7 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 
 **Abstraction for UI design:**
 
-Input:  one or more touches, x and y (Hammer.js used by Ionic can track many touches simultaneously - take a look at  'touches' under the event when doing a pinch or rotate with many fingers). Accelerometer data. Effect from other elements via collisions, and links such as hinges and springs.
+Input:  one or more touches, x and y. Hammer.js used by Ionic can track many touches simultaneously - take a look at  'touches' under the event when doing a pinch or rotate with many fingers. Accelerometer data. Effect from other elements via collisions, and links such as hinges and springs.
 
 Output: transform a DOM element by any combo of 'translateX', 'translateY', 'translateZ', 'rotateX','rotateY','rotateZ','scale', 'scaleX','scaleY'. Apply multipliers (magnitude and reversing effects) and functions.
 
