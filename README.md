@@ -1,14 +1,14 @@
 NUI - Natural UI
 ================
 **NUI for mobile devices.**
-######NOTE: Just a rapid proof-of-concept so far.######
+######NOTE: Just a rapid proof-of-concept so far.
 
 Testing with [Ionic framework](http://ionicframework.com/).
 
 Includes **Angular modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
 
 ##Natural UI
-From CLI to GUI, and now to NUI?
+From CLI to GUI, and now to NUI
 
 CLI is based on remembering the commands.
 GUI is symbolic, turns-based.
