@@ -1,7 +1,8 @@
 NUI - Natural UI
 ================
 **NUI for mobile devices.**
-Just a rapid proof-of-concept so far.
+######NOTE: Just a rapid proof-of-concept so far.######
+
 Testing with [Ionic framework](http://ionicframework.com/).
 
 Includes **Angular modules** to enable declaring any DOM element to respond to drag and multi-touch, accelerometer input or calculations from a 2D PHYSICS engine to include gravity, collisions, inertia, friction etc.
@@ -18,7 +19,7 @@ So, what about NUI?
 
 Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprinciplesftw.com/collections/eight-principles-of-natural-user-interfaces):
 
-1. **Performance Aesthetics** - The joy of doing: the pleasure comes from the **flow of the interaction**, not the accomplishment of each task like in traditional GUI.
+1. **Performance Aesthetics** - The joy of doing: the pleasure comes from the *flow of the interaction*, not the accomplishment of each task like in traditional GUI.
 2. **Direct Manipulation** - Physically touching and manipulating information with fingertips or other direct means, without an aid such as a mouse. 
 3. **Scaffolding** - Scaffolding is a strong cue or guide that sets users’ expectations by giving them an indication of how the interaction will unfold.
 4. **Contextual Environments** - Responsive to the context, suggesting what the next interaction could be.
