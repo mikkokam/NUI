@@ -4,7 +4,14 @@ NUI - Natural UI
 
 ####DEMO: http://codepen.io/mikkokam/pen/Geotz
 
-####USAGE: For now, check the src/www/index.html / or the at DEMO Codepen.
+####USAGE: Check the src/www/index.html - or the Codepen demo.
+Load the required js (Ionic, then `velocity.js`, `velocity.ui.js` and `Box2dWeb.js`).
+After them, load NUI: `nui.ionic.js` and `nui.ionic.box2d.js`.
+Add a attribute like `nui-tiltable` to some element in your html. That's it.
+
+Documentation coming later.
+
+---------------
 
 Testing with [Ionic framework](http://ionicframework.com/).
 
