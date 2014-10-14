@@ -16,7 +16,7 @@ Documentation coming later.
 ####Goals:
 * Enable the user to directly manipulate, drag, and throw any UI element,
 * using touch and multi-touch with inertia, plus tilting/orienting the device.
-* Have elements automatically interact with each others on screen, using natural and intuitive phenomena from physics.
+* Let elements automatically interact with each others, using natural and intuitive phenomena from physics.
 * Make this very easy for anyone to implement in code. No canvas, just plain DOM elements. Declarative, i.e. an element is declared to be tiltable by an HTML attribute > it automatically starts reacting to the device orientation.
 
 
