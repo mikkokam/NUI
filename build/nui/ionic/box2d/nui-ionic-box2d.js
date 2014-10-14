@@ -34,14 +34,14 @@ angular.module('nui.ionic.box2d', [])
 		bodyDef.position.x = x / nuiWorld.SCALE;
 		bodyDef.position.y = y / nuiWorld.SCALE
 
-		var fixDef = new Box2D.Dynamics.b2FixtureDef;
-     	fixDef.density = 10;
-     	fixDef.friction = 0.6;
-     	fixDef.restitution = 0.4;
+		var fixDefWall = new Box2D.Dynamics.b2FixtureDef;
+     	fixDefWall.density = 10;
+     	fixDefWall.friction = 0.6;
+     	fixDefWall.restitution = 0.4;
 
-		fixDef.shape = new Box2D.Collision.Shapes.b2PolygonShape;
-		fixDef.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
-		return nuiWorld.world.CreateBody(bodyDef).CreateFixture(fixDef);
+		fixDefWall.shape = new Box2D.Collision.Shapes.b2PolygonShape;
+		fixDefWall.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
+		return nuiWorld.world.CreateBody(bodyDef).CreateFixture(fixDefWall);
 	}	
 
 	function _init(){
@@ -94,12 +94,17 @@ angular.module('nui.ionic.box2d', [])
   	return nuiWorld;
 })
 
+/** 
+* Attributes (all optional)
+* nui-shape: "box", "circle"
+* nui-x and nui-y: position (midpoint), either px or %
+* nui-width and nui-height: size, either px or %
+*/
 .directive('nuiBody', function(nuiWorld, $window, $ionicGesture){
     return {
             restrict: 'A',
             template: '',
             scope: {
-            	rot: "="
             },
             link: function (scope, elem, attrs) {
 				var mouseJoint = null;
@@ -113,17 +118,20 @@ angular.module('nui.ionic.box2d', [])
 					return ((str.indexOf("%") != -1) ? (parseInt(str)/100 * full) : (parseInt(str)) );
 				}
 
+
 				function _init(){
 					// The Box2D World
 					var world = nuiWorld.world;
 
 					// Create Object from DOM into Box2D:
-					console.log(elem[0]);
-					console.log(elem[0].getBoundingClientRect());
-					console.log(elem[0].offsetHeight);
+					// console.log(elem[0]);
+					// console.log(elem[0].getBoundingClientRect());
+					// console.log(elem[0].offsetHeight);
 
-		            var width = elem[0].offsetWidth/2;
-		            var height = elem[0].offsetHeight/2;
+		            var width = (attrs.nuiWidth) ? (_parseNumber(attrs.nuiWidth, $window.innerWidth)/2) : (elem[0].offsetWidth/2);
+		            var height = (attrs.nuiHeight) ? (_parseNumber(attrs.nuiHeight, $window.innerHeight)/2) : (elem[0].offsetHeight/2);
+					if(height == 0 || width == 0)
+						throw new Error("Element dimensions are not set early enough. Do it by a class or style (ng-style and ng-class may be not set yet) -- or nui-width and nui-height attributes. " + elem[0]);
 
 		            var x = (attrs.nuiX) ? (_parseNumber(attrs.nuiX, $window.innerWidth)) : (elem[0].getBoundingClientRect().left + width);
 		            var y = (attrs.nuiX) ? (_parseNumber(attrs.nuiY, $window.innerHeight)) : (elem[0].getBoundingClientRect().top + height);
@@ -145,8 +153,12 @@ angular.module('nui.ionic.box2d', [])
 		         	fixDef.restitution = 0.5;
 
 					// Typically a circle or a box
-					fixDef.shape = new Box2D.Collision.Shapes.b2PolygonShape;
-					fixDef.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
+					if(attrs.nuiShape == "circle")
+						fixDef.shape = new Box2D.Collision.Shapes.b2CircleShape(width / nuiWorld.SCALE)
+					else{
+						fixDef.shape = new Box2D.Collision.Shapes.b2PolygonShape;
+						fixDef.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
+					}
 
 					var body = nuiWorld.world.CreateBody(bodyDef);
 		            var fix = body.CreateFixture(fixDef);
@@ -157,7 +169,7 @@ angular.module('nui.ionic.box2d', [])
 					
 					// Reset the DOM object
 					elem.css({'position': 'absolute', 'top': '0px', 'left': '0px'});
-				}
+				}				
 
 
 			 	$ionicGesture.on('dragstart', function(ev) {
