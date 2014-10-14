@@ -40,7 +40,7 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 
 
 ###Multi-touch and other inputs
-####Goals: Drag, throw, and manipulate any UI element using multi-touch with inertia, or accelerometer.
+#####Goals: Drag, throw, and manipulate any UI element using multi-touch with inertia, or accelerometer.
 
 **Abstraction for UI design:**
 
@@ -53,7 +53,7 @@ Ideally triggers events to chain actions.
 ###Physics
 To make elements behave in a natural way, plain CSS animations and transitions are not enough. Therefore, a physics engine is needed.
 
-A physics engine calculates the interactions using real properties. Many projects link this with an external renderer to draw the results on HTML5 <canvas> element. In this project, we intend to test linking the engine with plain DOM elements, to better utilize frameworks like Angular and Ionic.
+A physics engine calculates the interactions using real properties. Many projects link this with an external renderer to draw the results on HTML5 canvas element. In this project, we intend to test linking the engine with plain DOM elements, to better utilize frameworks like Angular and Ionic.
 
 ####Engine
 Testing the old Box2 ([Box2dWeb](https://code.google.com/p/box2dweb/wiki/BasicUsage)) currently, but might be wise to switch to [LiquidFun](http://google.github.io/liquidfun/) or something completely different (native js or even 3d).
