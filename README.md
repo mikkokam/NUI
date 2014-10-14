@@ -18,14 +18,14 @@ So, what about NUI?
 
 Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprinciplesftw.com/collections/eight-principles-of-natural-user-interfaces):
 
-**1. Performance Aesthetics** - The joy of doing: the pleasure comes from the **flow of the interaction**, not the accomplishment of each task like in traditional GUI.
-**2. Direct Manipulation** - Physically touching and manipulating information with fingertips or other direct means, without an aid such as a mouse. 
-**3. Scaffolding** - Scaffolding is a strong cue or guide that sets users’ expectations by giving them an indication of how the interaction will unfold.
-**4. Contextual Environments** - Responsive to the context, suggesting what the next interaction could be.
-**5. The Super Real** - The UI elements not only feel real, but we also perceive them to be *super real* as their character can change in a way that is almost magical.
-**6. Social Interaction** - Should be streamlined, enabling more opportunities for users to engage and interact with other users instead of the system’s interface.
-**7. Spatial Relationships** - Represent information as objects, not symbols.
-**8. Seamlessness** - Sensors, and the use of gestural UI's enable interactions to feel seamless. There are fewer barriers between the user and information.
+1. **Performance Aesthetics** - The joy of doing: the pleasure comes from the **flow of the interaction**, not the accomplishment of each task like in traditional GUI.
+2. **Direct Manipulation** - Physically touching and manipulating information with fingertips or other direct means, without an aid such as a mouse. 
+3. **Scaffolding** - Scaffolding is a strong cue or guide that sets users’ expectations by giving them an indication of how the interaction will unfold.
+4. **Contextual Environments** - Responsive to the context, suggesting what the next interaction could be.
+5. **The Super Real** - The UI elements not only feel real, but we also perceive them to be *super real* as their character can change in a way that is almost magical.
+6. **Social Interaction** - Should be streamlined, enabling more opportunities for users to engage and interact with other users instead of the system’s interface.
+7. **Spatial Relationships** - Represent information as objects, not symbols.
+8. **Seamlessness** - Sensors, and the use of gestural UI's enable interactions to feel seamless. There are fewer barriers between the user and information.
 
 
 ###Multi-touch
