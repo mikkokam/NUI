@@ -30,8 +30,8 @@ Eight Principles of Natural User Interfaces by [Rachel Hinman](http://designprin
 8. **Seamlessness** - Sensors, and the use of gestural UI's enable interactions to feel seamless. There are fewer barriers between the user and information.
 
 
-###Multi-touch
-####Goals:  drag, throw, manipulate any DOM element with inertia.####
+###Multi-touch and other inputs
+####Goals: Drag, throw, and manipulate any UI element using multi-touch with inertia, or accelerometer.
 
 **Abstraction for UI design:**
 
