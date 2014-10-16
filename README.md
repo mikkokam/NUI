@@ -3,7 +3,8 @@ NUI - Natural UI
 **NUI for mobile devices.** This is just a rapid proof-of-concept so far.
 
 ####DEMO: https://rawgit.com/mikkokam/NUI/master/src/www/index.html
-( Codepen: http://codepen.io/mikkokam/full/Geotz )
+IE not tested. Use Chrome, Safari - or a mobile device (preferred).
+( Older: Codepen: http://codepen.io/mikkokam/full/Geotz )
 
 ####USAGE: Check the src/www/index.html - or the Codepen demo.
 
