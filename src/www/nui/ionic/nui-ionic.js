@@ -1,5 +1,5 @@
 /**
-  * NUI (Natural UI) for Ionic - v0.0.1 - 2014
+  * NUI (Natural UI) for Ionic - v0.0.2 - 2014
   * (c) 2014 Mikko Kamarainen <mikko.kamarainen@gmail.com>; License: MIT
   */
 
@@ -47,7 +47,6 @@ var _nuiDefaults = {
     "windowWidth": Container.innerWidth,
     "windowHeight": Container.innerHeight
 };
-
 
 angular.module('nui.ionic', [])
 

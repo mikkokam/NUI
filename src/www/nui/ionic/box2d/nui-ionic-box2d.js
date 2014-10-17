@@ -1,22 +1,35 @@
 /**
-  * NUI-Box2D (Natural UI + Box2D Physics) for Ionic - v0.0.1 - 2014
+  * NUI-Box2D (Natural UI + Box2D Physics) for Ionic - v0.0.2 - 2014
   * (c) 2014 Mikko Kamarainen <mikko.kamarainen@gmail.com>; License: MIT
   */
 
 var Container = (window.jQuery || window.Zepto || window);
-	if (!Container.Box2D) {
-		throw new Error('Missing Box2D (Box2dWeb-2.1.a.3.min.js - https://code.google.com/p/box2dweb/). It must be loaded first. Aborting.');
+	if (!Container.b2World) {
+		throw new Error('Missing LiquidFun (liquidfun.js - http://google.github.io/liquidfun/). It must be loaded first. Aborting.');
 	}
 
 angular.module('nui.ionic.box2d', [])
 
 .factory('nuiWorld', function($interval) {
 
- 	var nuiWorld = {};
- 	nuiWorld.destroy = function(){
- 		nuiWorld.world = null;
- 		$interval.cancel(loop);
- 		_init();
+ 	var nuiWorld = {world: null};
+
+ 	nuiWorld.reset = function(){
+		if (nuiWorld.world !== null) {
+			while (nuiWorld.world.joints.length > 0) {
+		  		nuiWorld.world.DestroyJoint(nuiWorld.world.joints[0]);
+			}
+
+			while (nuiWorld.world.bodies.length > 0) {
+		  		nuiWorld.world.DestroyBody(nuiWorld.world.bodies[0]);
+			}
+
+			while (nuiWorld.world.particleSystems.length > 0) {
+		  		nuiWorld.world.DestroyParticleSystem(nuiWorld.world.particleSystems[0]);
+			}
+		}
+		_createBounds();
+ 		// $interval.cancel(loop);
  	}
 
 	// Scaling Box2D units vs. pixels
@@ -29,29 +42,25 @@ angular.module('nui.ionic.box2d', [])
 	var loop = null;
 
 	var _createBox = function(x,y,width,height,static){
-		var bodyDef = new Box2D.Dynamics.b2BodyDef;
-		bodyDef.type = static ? Box2D.Dynamics.b2Body.b2_staticBody : Box2D.Dynamics.b2Body.b2_dynamicBody;
+		var bodyDef = new b2BodyDef;
+		bodyDef.type = static ? b2_staticBody : b2_dynamicBody;
 		bodyDef.position.x = x / nuiWorld.SCALE;
 		bodyDef.position.y = y / nuiWorld.SCALE
 
-		var fixDefWall = new Box2D.Dynamics.b2FixtureDef;
+		var fixDefWall = new b2FixtureDef;
      	fixDefWall.density = 10;
      	fixDefWall.friction = 0.6;
      	fixDefWall.restitution = 0.4;
 
-		fixDefWall.shape = new Box2D.Collision.Shapes.b2PolygonShape;
-		fixDefWall.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
-		return nuiWorld.world.CreateBody(bodyDef).CreateFixture(fixDefWall);
-	}	
+		fixDefWall.shape = new b2PolygonShape;
 
-	function _init(){
-		// Create the Box2D World with gravity
-		//nuiWorld.world = new Box2D.Dynamics.b2World(
-		nuiWorld.world = new Box2D.Dynamics.b2World(
-			new Box2D.Common.Math.b2Vec2(0, 9.8) // gravity
-			, true // allow sleep
-		);
+		fixDefWall.shape.SetAsBoxXY(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
+		return world.CreateBody(bodyDef).CreateFixtureFromDef(fixDefWall);
+	}
 
+	function _createBounds(){
+		// Create the basic ground body to use later (i.e. mouse drag)
+  		nuiWorld.g_groundBody = world.CreateBody(new b2BodyDef);
 		// Create the walls
 		var w = window.innerWidth;
 		var h = window.innerHeight;
@@ -61,36 +70,44 @@ angular.module('nui.ionic.box2d', [])
 		_createBox(w,0,5,h, true);
 		_createBox(0,0,w,5, true);
 
+	}
+
+
+	function _init(){
+		// Create the Box2D World with gravity
+		var gravity = new b2Vec2(0, 10);
+  		world = new b2World(gravity);
+  		nuiWorld.world = world;
+
+  		_createBounds();
+
 		// Start calculation loop
-		loop = $interval(_update,1000/60);
+		var ival = 1000/60;
+		loop = $interval(_render, ival);
 	}
 
 	// The main loop
-	var _update = function() {
-		nuiWorld.world.Step(
-			1 / 60, 	// frame-rate
-			10, 		// velocity iterations
-			10 			// position iterations
-		);
-		// CSS animation for the DOM objects
-		for (var b = nuiWorld.world.m_bodyList; b; b = b.m_next) {
-	         for (var f = b.m_fixtureList; f; f = f.m_next) {
-					if (f.m_userData) {
-						//Retrieve positions and rotations from the Box2d world
-						var x = Math.floor((f.m_body.m_xf.position.x * nuiWorld.SCALE) - f.m_userData.width);
-						var y = Math.floor((f.m_body.m_xf.position.y * nuiWorld.SCALE) - f.m_userData.height) - 44; // 44 px for Ionic header... TODO: fix this
-						var r = Math.round(((f.m_body.m_sweep.a + PI2) % PI2) * R2D * 100) / 100;
-						var css = {'-webkit-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', '-moz-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', '-ms-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)'  , '-o-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', 'transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)'};
+	var _STEP = 1.0/60.0;
+	var _render = function() {
+		nuiWorld.world.Step(_STEP,8,8);
+		var f=null;
+		// CSS transform for the DOM objects
+		for (var i=0, li=nuiWorld.world.bodies.length; i < li; i++) {     	
+         	f = nuiWorld.world.bodies[i].GetPosition();
+         	a = nuiWorld.world.bodies[i].GetAngle();
+			if(nuiWorld.world.bodies[i].fixtures[0]) if(nuiWorld.world.bodies[i].fixtures[0].userData) {
+				
+				//Retrieve positions and rotations from the Box2d world
+				var x = Math.floor((f.x * nuiWorld.SCALE) - nuiWorld.world.bodies[i].fixtures[0].userData.width);
+				var y = Math.floor((f.y * nuiWorld.SCALE) - nuiWorld.world.bodies[i].fixtures[0].userData.height) - 44; // 44 px for Ionic header... TODO: fix this
+				var css = {'-webkit-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + a  + 'rad)', '-moz-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + a  + 'rad)', '-ms-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + a  + 'rad)'  , '-o-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + a  + 'rad)', 'transform':'translate(' + x + 'px,' + y + 'px) rotate(' + a  + 'rad)'};
 
-						f.m_userData.domObj.css(css);
-					}
-	         }
+				nuiWorld.world.bodies[i].fixtures[0].userData.domObj.css(css);
+			}
+
       	}
-		nuiWorld.world.ClearForces();
 	}
-
 	_init();
-
   	return nuiWorld;
 })
 
@@ -136,35 +153,35 @@ angular.module('nui.ionic.box2d', [])
 		            var x = (attrs.nuiX) ? (_parseNumber(attrs.nuiX, $window.innerWidth)) : (elem[0].getBoundingClientRect().left + width);
 		            var y = (attrs.nuiX) ? (_parseNumber(attrs.nuiY, $window.innerHeight)) : (elem[0].getBoundingClientRect().top + height);
 		            
-					var bodyDef = new Box2D.Dynamics.b2BodyDef;
+					var bodyDef = new b2BodyDef;
 
 					// Attribute nui-static = "true" will make the element static, default is dynamic (moving)
-					bodyDef.type = (attrs.nuiStatic == "true") ? Box2D.Dynamics.b2Body.b2_staticBody : Box2D.Dynamics.b2Body.b2_dynamicBody;
+					bodyDef.type = (attrs.nuiStatic == "true") ? b2_staticBody : b2_dynamicBody;
 
-					bodyDef.position.x = x / nuiWorld.SCALE;
-					bodyDef.position.y = y / nuiWorld.SCALE
+					bodyDef.position.Set(x / nuiWorld.SCALE, y / nuiWorld.SCALE);
 
 					if(attrs.nuiRotate)
 						bodyDef.angle= D2R * parseInt(attrs.nuiRotate);
 
-					var fixDef = new Box2D.Dynamics.b2FixtureDef;
+					var fixDef = new b2FixtureDef;
 		         	fixDef.density = 2.0;
 		         	fixDef.friction = 0.15;
 		         	fixDef.restitution = 0.5;
 
 					// Typically a circle or a box
-					if(attrs.nuiShape == "circle")
-						fixDef.shape = new Box2D.Collision.Shapes.b2CircleShape(width / nuiWorld.SCALE)
-					else{
-						fixDef.shape = new Box2D.Collision.Shapes.b2PolygonShape;
-						fixDef.shape.SetAsBox(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
+					if(attrs.nuiShape == "circle"){
+						fixDef.shape = new b2CircleShape;
+						fixDef.shape.radius = (width / nuiWorld.SCALE)
+					}else{
+						fixDef.shape = new b2PolygonShape;
+						fixDef.shape.SetAsBoxXY(width / nuiWorld.SCALE, height / nuiWorld.SCALE);
 					}
 
 					var body = nuiWorld.world.CreateBody(bodyDef);
-		            var fix = body.CreateFixture(fixDef);
+		            var fix = body.CreateFixtureFromDef(fixDef);
 
 					// Circular cross-references... Element into body & body into element for quick access:
-					fix.m_userData = {domObj:elem, width:width, height:height};
+					fix.userData = {domObj:elem, width:width, height:height};
 					elem[0].body = body;
 					
 					// Reset the DOM object
@@ -176,8 +193,8 @@ angular.module('nui.ionic.box2d', [])
 			 		// Fetch the Box2D body associated with this element:
 					var body = elem[0].body;
 
-					var md = new Box2D.Dynamics.Joints.b2MouseJointDef();
-					md.bodyA = nuiWorld.world.GetGroundBody();
+					var md = new b2MouseJointDef();
+					md.bodyA = nuiWorld.g_groundBody;
 					md.bodyB = body;
 
                 	mx = touchedX = ev.gesture.center.pageX;
@@ -187,18 +204,18 @@ angular.module('nui.ionic.box2d', [])
 					md.collideConnected = true;
 					md.maxForce = 100.0 * body.GetMass();
 
-					mouseJoint = nuiWorld.world.CreateJoint(md);
+					mouseJoint = world.CreateJoint(md);
 					body.SetAwake(true);
         		}, elem);
 
         		$ionicGesture.on('drag', function(ev) {
                 	mx = touchedX + ev.gesture.deltaX;
                 	my = touchedY + ev.gesture.deltaY;
-                  	mouseJoint.SetTarget(new Box2D.Common.Math.b2Vec2(mx/nuiWorld.SCALE, my/nuiWorld.SCALE));
+                  	mouseJoint.SetTarget(new b2Vec2(mx/nuiWorld.SCALE, my/nuiWorld.SCALE));
         		}, elem);
 
         		$ionicGesture.on('dragend', function(ev) {
-					nuiWorld.world.DestroyJoint(mouseJoint);
+					world.DestroyJoint(mouseJoint);
                   	mouseJoint = null;
         		}, elem);
 

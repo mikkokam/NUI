@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'nui.ionic', 'nui.ionic.box2d'])
 // Demos
 .controller('Box2DController', function($scope, nuiWorld) {
     // Clean up. This proto version of nui-box2d needs a hack to reset the world:
-    nuiWorld.destroy();
+    nuiWorld.reset();
 
     $scope.blocks = [];
 
@@ -48,7 +48,7 @@ angular.module('starter', ['ionic', 'nui.ionic', 'nui.ionic.box2d'])
 })
 .controller('ListController', function($scope, nuiWorld) {
     // Clean up. This proto version of nui-box2d needs a hack to reset the world:
-    nuiWorld.destroy();
+    nuiWorld.reset();
     $scope.blocks = [];
     for(var i=0; i < 5; i++){
         $scope.blocks.push({"x": i})
