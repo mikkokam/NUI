@@ -8,7 +8,7 @@ Older: Codepen: http://codepen.io/mikkokam/full/Geotz
 
 ####USAGE: Check the src/www/index.html - or the Codepen demo.
 
-Load the required js (**Ionic**, then `velocity.js`, `velocity.ui.js` and `Box2dWeb.js`).
+Load the required js (**Ionic**, then `velocity.js`, `velocity.ui.js` and `liquidfun.js`).
 
 After them, load NUI: `nui.ionic.js` and `nui.ionic.box2d.js`.
 
@@ -71,6 +71,7 @@ We feel a physics engine is needed even for an UI.
 A physics engine calculates the interactions using real properties. Many projects link this with an external renderer to draw the results on a HTML5 canvas element. In this project, we intend to test linking the engine with plain DOM elements, to better use the frameworks like Angular and Ionic.
 
 ####Engine
-Testing the old Box2 ([Box2dWeb](https://code.google.com/p/box2dweb/wiki/BasicUsage)) currently, but might be wise to switch to [LiquidFun](http://google.github.io/liquidfun/) or something completely different (native js or even 3d).
+Version 0.0.1 used the old Box2 ([Box2dWeb](https://code.google.com/p/box2dweb/wiki/BasicUsage)).
+It was small and worked well, but version 0.0.2 is the first attempt to test [LiquidFun](http://google.github.io/liquidfun/). Maybe also test something completely different later (native js or even 3d). The goal is to maintain the Ionic side the same, the physics engine can be replaced.
 
-LiquidFun enables particles, liquids and elastic bodies while maintaining compatibility with Box2D. To replace Box2dWeb with LiquidFun might not be a big task.
+LiquidFun enables particles, liquids and elastic bodies while maintaining **some** compatibility with Box2D. Several things had to be changed to make it work.
